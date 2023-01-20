@@ -12,8 +12,20 @@ public_users.post("/register", (req,res) => {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
+    let myPromise = new Promise(function(resolve, reject){
+        const availableBooks = JSON.stringify(books);
+        if(availableBooks){
+            resolve(availableBooks);
+        } else {
+            reject("Sorry currently no available books in the shop! Check back later.")
+        }
+    })
+    myPromise.then(
+        function(value) { return res.send(value) },
+        function(error) { return res.send(error) }
+    );
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  //return res.status(300).json({message: "Yet to be implemented"});
 });
 
 // Get book details based on ISBN
